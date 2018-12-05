@@ -41,12 +41,9 @@ class Summator
             /** @var int $tmpValue */
             $tmpValue = $firstValue + $secondValue + $bufferValue;
 
-            if ($tmpValue > static::MAX_NUMBER_IN_PART) {
+            if ($tmpValue >= static::MAX_NUMBER_IN_PART) {
                 $this->addBuffer($key);
-                $result = $this->calculateValue($tmpValue);
-            } elseif ($tmpValue === static::MAX_NUMBER_IN_PART) {
-                $this->addBuffer($key);
-                $result = $this->generateValue();
+                $result = $this->generateValue($tmpValue);
             } else {
                 $result = $tmpValue;
             }
@@ -66,31 +63,28 @@ class Summator
     /**
      * @param $key
      */
-    private function addBuffer($key): void
+    private function addBuffer(int $key): void
     {
         $this->buffer[$key + 1] = 1;
     }
 
     /**
-     * @param $tmpValue
+     * Числа которые получаются больше чем MAX_NUMBER_IN_PART обрезаем
+     * Чтобы сохранить часть в уме, а часть добавить в виде строки в ответ
      *
-     * @return int
-     */
-    private function calculateValue($tmpValue): int
-    {
-        return $tmpValue % static::MAX_NUMBER_IN_PART;
-    }
-
-    /**
+     * Работаем как со строкой, чтобы сохранить 0, при оберзка таких чисел как: 10000б 10988
+     *
+     * @param int $tmpValue
+     *
      * @return string
      */
-    private function generateValue(): string
+    private function generateValue($tmpValue =  self::MAX_NUMBER_IN_PART): string
     {
-        return substr((string) static::MAX_NUMBER_IN_PART, 1);
+        return substr((string) $tmpValue, 1);
     }
 
     /**
-     * @param int $value
+     * @param int|string $value
      */
     private function addResult($value): void
     {

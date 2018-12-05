@@ -9,11 +9,13 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "phpunit/phpunit": "^6.5"
     },
     "autoload": {
         "psr-0": {
-            "Summator": "src/"
+            "Summator": "src/",
+            "Tests": "test/"
         }
     }
 }
