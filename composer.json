@@ -1,0 +1,19 @@
+{
+    "name": "nikolaev/summator",
+    "description": "Сложение больших чисел",
+    "authors": [
+        {
+            "name": "nikolaev",
+            "email": "dmitriynik91@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "Summator": "src/"
+        }
+    }
+}
