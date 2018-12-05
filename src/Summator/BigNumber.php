@@ -30,6 +30,15 @@ class BigNumber implements \ArrayAccess, \IteratorAggregate
         $this->fillContainer();
     }
 
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        return $this->count;
+    }
+
+
     private function fillContainer(): void
     {
         foreach ($this->getParts() as $part) {
@@ -76,5 +85,4 @@ class BigNumber implements \ArrayAccess, \IteratorAggregate
 
         return empty($subString) ? null : $subString;
     }
-
 }

@@ -25,13 +25,15 @@ class Summator
     private $result;
 
     /**
-     * @param BigNumber $firstNumber
-     * @param BigNumber $secondNumber
+     * @param BigNumber $number
+     * @param BigNumber $otherNumber
      *
      * @return string
      */
-    public function sum(BigNumber $firstNumber, BigNumber $secondNumber) : string
+    public function sum(BigNumber $number, BigNumber $otherNumber) : string
     {
+        list($firstNumber, $secondNumber) = $this->prepareNumbers($number, $otherNumber);
+
         $key = 0;
         foreach ($firstNumber as $key => $firstValue) {
 
@@ -97,5 +99,29 @@ class Summator
     private function showResult(): string
     {
         return implode('', array_reverse($this->result));
+    }
+
+    /**
+     *
+     *
+     * @param BigNumber $number
+     * @param BigNumber $otherNumber
+     *
+     * @return array
+     */
+    private function prepareNumbers(BigNumber $number, BigNumber $otherNumber):array
+    {
+        if ($number->getCount() > $otherNumber->getCount()) {
+            $firstNumber = $number;
+            $secondNumber = $otherNumber;
+        } else {
+            $firstNumber = $otherNumber;
+            $secondNumber = $number;
+        }
+
+        return [
+            $firstNumber,
+            $secondNumber
+        ];
     }
 }

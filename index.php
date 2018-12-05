@@ -2,17 +2,46 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$a = new Summator\BigNumber("12348325982374589734895734857293874587987234234523452322123129999");
-$b = new Summator\BigNumber("2423422122398793129348532943485799345834985934859348");
+function sum(string $a, string $b)
+{
+    if (strlen($a) > strlen($b)) {
+        $firstString = $a;
+        $secondString = $b;
+    } else {
+        $firstString = $b;
+        $secondString = $a;
+    }
 
-//$a = new Summator\BigNumber("99999999");
-//$b = new Summator\BigNumber("1");
+    $firstReversedString = strrev($firstString);
+    $secondReversedString = strrev($secondString);
 
-//$a = new Summator\BigNumber("1");
-//$b = new Summator\BigNumber("2");
+    $buffer = 0;
+    $result = [];
 
-$summator = new \Summator\Summator();
+    $firstStringAsArray = str_split($firstReversedString);
+    foreach ($firstStringAsArray as $key => $value) {
+        $firstNumber = (int) $value;
+        $secondNumber = (int) ($secondReversedString[$key] ?? 0);
 
-echo $summator->sum($a, $b) . PHP_EOL;
+        $resultNumber = $firstNumber + $secondNumber + $buffer;
 
+        if ($resultNumber >= 10) {
+            $buffer = 1;
+            $result[] = substr((string) $resultNumber, 1);
+        } else {
+            $buffer = 0;
+            $result[] = $resultNumber;
+        }
+    }
 
+    if ($buffer != 0) {
+        $result[]= $buffer;
+    }
+
+    return implode('', array_reverse($result));
+}
+
+$a = "12348325982374589734895734857293874587987234234523452322123129999";
+$b = "2423422122398793129348532943485799345834985934859348";
+
+echo sum($a, $b) . PHP_EOL;
